@@ -9,4 +9,4 @@ COPY . /app/
 
 EXPOSE 80
 
-CMD ["python","main.py","runserver","0.0.0.0:8082"
+CMD ["python","main.py","runserver","0.0.0.0:80"]
