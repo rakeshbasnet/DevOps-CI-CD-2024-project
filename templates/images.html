@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Images</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/images.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Image Gallery</h1>
+        <nav>
+            <a href="/" class="nav-btn home-btn">Home</a>
+            <a href="/upload-image" class="nav-btn upload-more-btn">Upload Image</a>
+        </nav>
+    </header>
+    <main>
+        <div class="gallery">
+            {% for image_url in image_urls %}
+            <div class="gallery-item">
+                <img src="{{ image_url }}" alt="Image 1">
+                <div class="overlay">
+                    <p>Image 1</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Image Management System</p>
+    </footer>
+</body>
+</html>

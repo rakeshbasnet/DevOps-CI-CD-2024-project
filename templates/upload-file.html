@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+</head>
+<body>
+    <header>
+        <h1>Upload Your Image</h1>
+        <nav>
+            <a href="/" class="nav-btn home-btn">Home</a>
+            <a href="/images" class="nav-btn upload-more-btn">View Images</a>
+        </nav>
+    </header>
+    <main>
+        <div class="upload-container">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="image">Choose an image to upload:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn upload-btn">Upload Image</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Image Management System</p>
+    </footer>
+</body>
+</html>

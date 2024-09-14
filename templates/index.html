@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Upload Your Image</h1>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Image Management</h1>
+            <div class="options">
+                <a href="/upload-image" class="btn upload-btn">Upload Image</a>
+                <a href="/images" class="btn view-btn">View Images</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Image Management System</p>
+    </footer>
+</body>
+</html>
