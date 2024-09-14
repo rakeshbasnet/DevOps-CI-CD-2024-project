@@ -38,7 +38,7 @@ def upload_image():
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'image' not in request.files:
-        return 'No file part'
+        return 'No file uploaded'
 
     file = request.files['image']
 
