@@ -1,4 +1,4 @@
-FROM python-:3.12-alpine
+FROM python:3.12-alpine
 
 WORKDIR /app
 
@@ -9,4 +9,4 @@ COPY . /app/
 
 EXPOSE 80
 
-CMD ["python", "main.py","runserver","0.0.0.0:8082"]
+CMD ["python","main.py","runserver","0.0.0.0:8082"
