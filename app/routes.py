@@ -1,20 +1,14 @@
 from app import app
 from flask import Flask, request, redirect, url_for, render_template
 import boto3
+import os
 from botocore.exceptions import NoCredentialsError
-
-
-# S3 setup
-S3_BUCKET = "devops2024-project-bucket"
-S3_REGION = "us-east-1"
-AWS_ACCESS_KEY = "AKIA47CRYVMF4OZMZD7E"
-AWS_SECRET_KEY = "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"
 
 s3 = boto3.client(
     's3',
-    region_name=S3_REGION,
-    aws_access_key_id=AWS_ACCESS_KEY,
-    aws_secret_access_key=AWS_SECRET_KEY
+    region_name=os.getenv('S3_REGION'),
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_KEY')
 )
 
 # Allowed file types
@@ -38,7 +32,7 @@ def upload_image():
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'image' not in request.files:
-        return 'No file uploaded'
+        return 'No file part'
 
     file = request.files['image']
 
@@ -50,7 +44,7 @@ def upload():
         try:
             s3.upload_fileobj(
                 file,
-                S3_BUCKET,
+                os.getenv('S3_BUCKET'),
                 filename
             )
             return redirect(url_for('list_images'))
@@ -64,11 +58,11 @@ def upload():
 def list_images():
     # Fetch all objects in the S3 bucket
     try:
-        objects = s3.list_objects_v2(Bucket=S3_BUCKET)
+        objects = s3.list_objects_v2(Bucket=os.getenv('S3_BUCKET'))
         image_urls = []
         if 'Contents' in objects:
             for obj in objects['Contents']:
-                file_url = f"https://{S3_BUCKET}.s3.{S3_REGION}.amazonaws.com/{obj['Key']}"
+                file_url = f"https://{os.getenv('S3_BUCKET')}.s3.{os.getenv('S3_REGION')}.amazonaws.com/{obj['Key']}"
                 image_urls.append(file_url)
         return render_template('images.html', image_urls=image_urls)
     except Exception as e:
