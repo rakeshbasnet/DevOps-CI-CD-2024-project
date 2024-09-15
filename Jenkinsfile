@@ -1,31 +1,41 @@
 pipeline {
     agent any
-    environment {
-        // Private Docker image repository
-        DOCKER_REPOSITORY= "rakeshbasnet/flask-s3file-upload"
-    }
-    stages{
-        stage('Build Docker Image') {
+
+    stages {
+        stage('Build') {
             steps {
-                script {
-                    // Building docker image
-                    sh '''
-                    echo "Building docker image"
-                    docker build -t ${DOCKER_REPOSITORY}::{BUILD_NUMBER} .
-                    echo "Docker image built successfully!"
-                    '''
-                }
+                echo 'Building...'
+                // Simulate a build step
+                sh 'echo "Building the project..."'
             }
         }
-        stage('Push docker image to Registry') {
+
+        stage('Test') {
             steps {
-                script {
-                    // Pushing docker image to Dockerhub
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
-                        docker.image("${DOCKER_REPOSITORY}:${BUILD_NUMBER}").push('latest')
-                    }
-                }
+                echo 'Testing...'
+                // Simulate a test step
+                sh 'echo "Running tests..."'
             }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                // Simulate a deployment step
+                sh 'echo "Deploying the application..."'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+        always {
+            echo 'Pipeline completed.'
         }
     }
 }
