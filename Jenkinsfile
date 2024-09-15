@@ -13,7 +13,7 @@ pipeline {
                     // Building docker image
                     sh '''
                     echo "Building docker image"
-                    docker build -t ${DOCKER_REPOSITORY}::{BUILD_NUMBER} .
+                    docker build -t ${DOCKER_REPOSITORY}:{BUILD_NUMBER} .
                     echo "Docker image built successfully!"
                     '''
                 }
