@@ -60,7 +60,7 @@ Before you begin, ensure you have met the following requirements:
    cd DevOps-CI-CD-2024-project
    ```
    
-2. **Install Dependencies** <br>
+2. **Install Dependencies** <br><br>
    It's recommended to use a virtual environment. If you don't have one, you can create it using venv:
    ```bash
    python -m venv venv
@@ -88,19 +88,19 @@ cp .env.example .env
 ```
 ## Usage
 
-1. **Run the Application**<br>
+1. **Run the Application**<br><br>
    Start the Flask application by running:
    ```bash
    python main.py
    ```
    The application will available at `http://localhost:8082`
    
-2. **Access the Application**<br>
+2. **Access the Application**<br><br>
    Open your web browser and navigate to `http://localhost:8082`. You will see an interface showing options upload images
    and view uploaded images.
 
-3. **Uploading Images**<br>
+3. **Uploading Images**<br><br>
    Use the upload form to select and upload an image. The image will be stored in your S3 bucket.
    
-4. **Viewing Images**<br>
+4. **Viewing Images**<br><br>
    Uploaded images will be displayed on the main page after upload. You can view them directly in the browser.
