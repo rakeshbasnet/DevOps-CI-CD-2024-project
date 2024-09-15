@@ -34,13 +34,13 @@ DevOps-CI-CD-2024-project/
 └── Jenkinsfile           # Jenkins file for continuous integration
 
 ```
--> main.py: Main file to run a flask app in port 8082.
--> app : Contains the Flask application code, including routes for image upload and retrieval.
--> requirements.txt: Contains a list of Python packages required for the project.
--> .env.example: Contains environment variables for AWS credentials and configuration.
--> templates: HTML template file for the user interface.
--> Dockerfile -> For docker comtainerization
--> Jenkinsfile: File for Jenkins Pipeline for continuous integration.
+* main.py: Main file to run a flask app in port 8082.
+* app : Contains the Flask application code, including routes for image upload and retrieval.
+* requirements.txt: Contains a list of Python packages required for the project.
+* .env.example: Contains environment variables for AWS credentials and configuration.
+* templates: HTML template file for the user interface.
+* Dockerfile -> For docker comtainerization
+* Jenkinsfile: File for Jenkins Pipeline for continuous integration.
 
 ## Prerequisites
 
@@ -56,11 +56,11 @@ Before you begin, ensure you have met the following requirements:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   git clone https://github.com/rakeshbasnet/DevOps-CI-CD-2024-project.git
+   cd DevOps-CI-CD-2024-project
    ```
    
-2. **Install Dependencies
+2. **Install Dependencies**
    It's recommended to use a virtual environment. If you don't have one, you can create it using venv:
    ```bash
    python -m venv venv
@@ -75,8 +75,11 @@ Before you begin, ensure you have met the following requirements:
 The application is configured to use the following environment variables:
 ```bash
 AWS_ACCESS_KEY_ID: Your AWS access key.
+
 AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
+
 AWS_BUCKET_NAME: The name of your S3 bucket.
+
 AWS_REGION: The AWS region where your S3 bucket is located.
 ```
 Ensure these values are correctly set in your .env file. For that:
@@ -85,19 +88,19 @@ cp .env.example .env
 ```
 ## Usage
 
-1. **Run the Application
+1. **Run the Application**
    Start the Flask application by running:
    ```bash
    python main.py
    ```
    The application will available at `http://localhost:8082`
    
-2. **Access the Application
-   Open your web browser and navigate to http://localhost:8082. You will see an interface showing options upload images and
-   view uploaded images.
+2. **Access the Application**
+   Open your web browser and navigate to `http://localhost:8082`. You will see an interface showing options upload images
+   and view uploaded images.
 
-3. **Uploading Images
+3. **Uploading Images**
    Use the upload form to select and upload an image. The image will be stored in your S3 bucket.
    
-4. **Viewing Images
+4. **Viewing Images**
    Uploaded images will be displayed on the main page after upload. You can view them directly in the browser.
