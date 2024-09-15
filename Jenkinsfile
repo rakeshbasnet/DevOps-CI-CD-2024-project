@@ -19,7 +19,8 @@ pipeline {
         }
         stage('Push docker image to Registry'){
             steps{
-                scripts{
+                script{
+                    // Pushing docker image to Dockerhub
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds'){
                         docker.image("${DOCKER_REPOSITORY}:${BUILD_NUMBER}").push('latest')
                     }
