@@ -39,7 +39,7 @@ pipeline {
             echo 'Pipeline failed.'
         }
         always {
-            echo 'Pipeline completed successfully.'
+            echo 'Pipeline completed.'
         }
     }
 }
