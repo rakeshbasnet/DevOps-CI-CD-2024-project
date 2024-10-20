@@ -48,11 +48,14 @@ pipeline {
                             ]]
                         ])
 
+                        // Check out the main branch
+                        sh "git checkout main"
+
                         echo "Updating deployment file..."
                         // Update the deployment.yml file
                         sh "sed -i 's/ImageTag/${BUILD_NUMBER}/g' flask-image-manifests/deployment.yml"
 
-                        // Check if on the correct branch and push changes
+                        // Commit and push the changes
                         sh """
                             git config --global user.email "rakeshbasnet086@gmail.com"
                             git config --global user.name "Rakesh Basnet"
