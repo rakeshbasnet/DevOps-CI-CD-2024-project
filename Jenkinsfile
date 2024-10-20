@@ -57,6 +57,11 @@ pipeline {
                             git config --global user.name "Rakesh Basnet"
                         '''
 
+                        // Pull any changes from remote git
+                        sh '''
+                            git pull origin main
+                        '''
+
                         echo "Updating deployment file..."
                         // Update the deployment.yml file
                         sh "sed -i 's#image: rakeshbasnet/flask-s3file-upload:.*#image: rakeshbasnet/flask-s3file-upload:${BUILD_NUMBER}#' flask-image-manifests/deployment.yml"
