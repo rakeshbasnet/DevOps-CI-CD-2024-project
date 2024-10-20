@@ -56,7 +56,7 @@ def upload():
 
 @app.route('/images')
 def list_images():
-    # Fetch all objects in the S3 bucket
+    # Fetch all images in the S3 bucket
     try:
         objects = s3.list_objects_v2(Bucket=os.getenv('S3_BUCKET'))
         image_urls = []
