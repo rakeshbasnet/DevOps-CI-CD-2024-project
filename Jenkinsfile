@@ -53,7 +53,7 @@ pipeline {
 
                         echo "Updating deployment file..."
                         // Update the deployment.yml file
-                        sh "sed -i 's/ImageTag/${BUILD_NUMBER}/g' flask-image-manifests/deployment.yml"
+                        sh "sed -i 's#image: rakeshbasnet/flask-s3file-upload:.*#image: rakeshbasnet/flask-s3file-upload:${IMAGE_TAG}#' flask-image-manifests/deployment.yml"
 
                         // Commit and push the changes
                         sh """
