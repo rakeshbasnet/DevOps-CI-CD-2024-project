@@ -4,7 +4,6 @@ pipeline {
     environment {
         // Private Docker image repository
         DOCKER_REPOSITORY = "rakeshbasnet/flask-s3file-upload"
-        // Deployment GIT Info
         GIT_REPO_NAME = "DevOps-CI-CD-2024-project-manifests"
         GIT_USER_NAME = "rakeshbasnet"
     }
@@ -49,20 +48,16 @@ pipeline {
                             ]]
                         ])
 
-                         // Configure Git user
-                        sh '''
-                            git config --global user.email "rakeshbasnet086@gmail.com"
-                            git config --global user.name "Rakesh Basnet"
-                        '''
-
                         echo "Updating deployment file..."
                         // Update the deployment.yml file
                         sh "sed -i 's/ImageTag/${BUILD_NUMBER}/g' flask-image-manifests/deployment.yml"
 
-                        // Commit and push the changes
+                        // Check if on the correct branch and push changes
                         sh """
+                            git config --global user.email "rakeshbasnet086@gmail.com"
+                            git config --global user.name "Rakesh Basnet"
                             git add flask-image-manifests/deployment.yml
-                            git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                            git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
                             git push origin main
                         """
                         echo "Deployment file updated and pushed successfully!"
