@@ -3,48 +3,70 @@ pipeline {
 
     environment {
         // Private Docker image repository
-        DOCKER_REPOSITORY= "rakeshbasnet/flask-s3file-upload"
+        DOCKER_REPOSITORY = "rakeshbasnet/flask-s3file-upload"
+        // Deployment GIT Info
+        GIT_REPO_NAME = "DevOps-CI-CD-2024-project-manifests"
+        GIT_USER_NAME = "rakeshbasnet"
     }
 
     stages {
-       stage('Build Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Building docker image
-                    sh '''
-                    echo "Building docker image"
-                    docker build -t ${DOCKER_REPOSITORY}:${BUILD_NUMBER} .
+                    echo "Building Docker image..."
+                    // Build the Docker image
+                    sh "docker build -t ${DOCKER_REPOSITORY}:${BUILD_NUMBER} ."
                     echo "Docker image built successfully!"
-                    '''
                 }
             }
         }
-        stage('Push docker image to Registry') {
+
+        stage('Push Docker Image to Registry') {
             steps {
                 script {
-                    // Pushing docker image to Dockerhub
+                    echo "Pushing Docker image to Docker Hub..."
+                    // Push the Docker image to Docker Hub
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
                         docker.image("${DOCKER_REPOSITORY}:${BUILD_NUMBER}").push()
                     }
+                    echo "Docker image pushed successfully!"
                 }
             }
         }
+
         stage('Update Deployment File') {
-            environment {
-                GIT_REPO_NAME = "DevOps-CI-CD-2024-project-manifests"
-                GIT_USER_NAME = "rakeshbasnet"
-            }
             steps {
                 withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
-                    sh '''
-                        git config user.email "rakeshbasnet086@gmail.com"
-                        git config user.name "Rakesh Basnet"
-                        BUILD_NUMBER=${BUILD_NUMBER}
-                        sed -i "s/ImageTag/${BUILD_NUMBER}/g" flask-image-manifests/deployment.yml
-                        git add flask-image-manifests/deployment.yml
-                        git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
-                    '''
+                    script {
+                        echo "Checking out the deployment repository..."
+
+                        // Checkout the deployment repository
+                        checkout([
+                            $class: 'GitSCM',
+                            branches: [[name: '*/main']],
+                            userRemoteConfigs: [[
+                                url: "https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git"
+                            ]]
+                        ])
+
+                         // Configure Git user
+                        sh '''
+                            git config --global user.email "rakeshbasnet086@gmail.com"
+                            git config --global user.name "Rakesh Basnet"
+                        '''
+
+                        echo "Updating deployment file..."
+                        // Update the deployment.yml file
+                        sh "sed -i 's/ImageTag/${BUILD_NUMBER}/g' flask-image-manifests/deployment.yml"
+
+                        // Commit and push the changes
+                        sh """
+                            git add flask-image-manifests/deployment.yml
+                            git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                            git push origin main
+                        """
+                        echo "Deployment file updated and pushed successfully!"
+                    }
                 }
             }
         }
