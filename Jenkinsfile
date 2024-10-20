@@ -51,14 +51,18 @@ pipeline {
                         // Check out the main branch
                         sh "git checkout main"
 
+                         // Configure Git user
+                        sh '''
+                            git config --global user.email "rakeshbasnet086@gmail.com"
+                            git config --global user.name "Rakesh Basnet"
+                        '''
+
                         echo "Updating deployment file..."
                         // Update the deployment.yml file
                         sh "sed -i 's#image: rakeshbasnet/flask-s3file-upload:.*#image: rakeshbasnet/flask-s3file-upload:${BUILD_NUMBER}#' flask-image-manifests/deployment.yml"
 
                         // Commit and push the changes
                         sh """
-                            git config --global user.email "rakeshbasnet086@gmail.com"
-                            git config --global user.name "Rakesh Basnet"
                             git add flask-image-manifests/deployment.yml
                             git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
                             git push origin main
