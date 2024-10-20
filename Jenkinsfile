@@ -57,9 +57,9 @@ pipeline {
                             git config --global user.name "Rakesh Basnet"
                         '''
 
-                        // Pull any changes from remote git
+                        // Pull the latest changes with merge strategy
                         sh '''
-                            git pull origin main
+                            git pull --no-rebase origin main
                         '''
 
                         echo "Updating deployment file..."
