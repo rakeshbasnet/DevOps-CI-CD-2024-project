@@ -4,6 +4,7 @@ pipeline {
     environment {
         // Private Docker image repository
         DOCKER_REPOSITORY = "rakeshbasnet/flask-s3file-upload"
+        // Manifest git repository for ArgoCD
         GIT_REPO_NAME = "DevOps-CI-CD-2024-project-manifests"
         GIT_USER_NAME = "rakeshbasnet"
     }
